@@ -1,8 +1,20 @@
 import Auth from "./components/Auth"
 
+
+
+
 const App = () => {
+
+
+
+ 
   return (
-    <Auth/>
+    <div className="bg-red-500 dark:bg-gray-300">
+   
+
+    <button className="btn btn-primary">Primary</button>
+  
+    </div>
   )
 }
 
