@@ -2,11 +2,15 @@ import React from 'react'
 import Login from '../pages/Login'
 
 const MainLayout = () => {
-    const isLogin = ""
+    const isLogin = true
     
     return(
        <>
-        {!isLogin ? <Login/> : <h1>Hello</h1>}
+ 
+       <div className='dark:bg-slate-600'>
+     
+        {isLogin ? <Login/> : <h1>Hello</h1>}
+       </div>
        </>
         )
  

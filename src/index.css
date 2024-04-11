@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.container_login{
+  background-image: url("./assets/bgLogin.jpeg");
+  background-position: center;
+  background-size: cover;
+}
