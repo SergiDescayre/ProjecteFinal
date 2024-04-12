@@ -7,9 +7,9 @@ import MainLayout from './layouts/MainLayout'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
-  <React.StrictMode>
+
     <MainLayout />
-  </React.StrictMode>
+
 
   </Provider>
 )

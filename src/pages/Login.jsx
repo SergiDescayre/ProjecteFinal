@@ -15,7 +15,7 @@ import {
   setIsRegister,
 } from "../features/authUserSlice.js";
 
-import logo from "../assets/logo.png";
+import logo from "../assets/logo_dark.png";
 
 const auth = getAuth(appFirebase);
 
@@ -29,7 +29,6 @@ const Login = () => {
     password: "",
   });
 
-  console.log(user);
 
   const [error, setError] = useState("");
 
@@ -91,10 +90,12 @@ const Login = () => {
   };
 
   return (
-    <section className="container_login flex items-center h-screen ">
-      <div className="h-screen md:h-[500px] md:card bg-slate-100 w-screen px-5 md:w-[400px] md:mx-auto">
-        <div className="flex flex-col justify-center h-screen">
-        <img src={logo} alt="logo" className="w-[350px] mx-auto -mt-[400px] mb-[100px] md:hidden" />
+    <section className="container_login flex justify-center items-center h-screen ">
+      <div className="w-screen flex flex-col justify-around h-screen  md:card md:h-[700px]  bg-orange-200  px-5 md:w-[400px] ">
+        <div>
+          <img src={logo} alt="logo" className=" mx-auto" />
+        </div>
+        <div>
           <form
             onSubmit={aunthenticate}
             noValidate
@@ -153,11 +154,14 @@ const Login = () => {
               {isRegister ? "Registro" : "Inicia sesión"}
             </button>
           </div>
-          {error !== "" && (
-            <div role="alert" className="alert alert-error mt-5 text-white">
-              <span>{error}</span>
-            </div>
-          )}
+        </div>
+
+        <div
+          className={` min-h-12 border-2 rounded-lg border-red-500  text-red-500 flex justify-center items-center mt-10 ${
+            error ? "visile " : "invisible"
+          }`}
+        >
+          {error}
         </div>
       </div>
     </section>

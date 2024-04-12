@@ -4,6 +4,7 @@ const initialState = {
   isRegister: false,
   user: {},
   isLogin: false,
+  showLogin : false
 };
 
 export const authUserSlice = createSlice({
@@ -19,7 +20,11 @@ export const authUserSlice = createSlice({
     setAuthUser: (state, action) => {
       state.user = action.payload;
     },
+    setShowLogin: (state, action) => {
+      state.showLogin = action.payload;
+    },
+
   },
 });
 
-export const  {setIsRegister,setIsLogin,setAuthUser}  = authUserSlice.actions
+export const  {setIsRegister,setIsLogin,setAuthUser,setShowLogin}  = authUserSlice.actions
