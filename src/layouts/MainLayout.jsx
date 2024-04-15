@@ -1,42 +1,40 @@
-import { useState } from "react";
-import Login from "../pages/Login";
-import Navbar from "../components/Navbar";
-import { useSelector, useDispatch } from "react-redux";
-import { setShowLogin } from "../features/authUserSlice";
+import { useEffect } from "react";
 
-import { festivales } from "../data/festivales";
-import ListFestivals from "../pages/ListFestivals";
+import appFirebase from "../credentials";
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+
+import { useDispatch } from "react-redux"
+import { setAuthUser, setIsLogin } from "../features/authUserSlice";
+
+import Navbar from "../components/Navbar";
 import Routing from "../routes/Routing";
 
+const auth = getAuth(appFirebase);
 
 const MainLayout = () => {
-  
-  const dispatch = useDispatch();
-  const [theme, isTheme] = useState("ligth");
+  const dispatch = useDispatch()
 
-  const buscador = festivales.filter(
-    (fest) => fest.modality.includes("Lindy Hop") || fest.modality.includes("")
-  );
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        dispatch(setAuthUser(user))
+        dispatch(setIsLogin(true))
+      } else {
+        // No hay usuario logueado
+        console.log("no hay usuario")
+      }
+    });
 
-  const { showLogin } = useSelector((state) => state.authUser);
-  const isLogin = true;
-  const handleShowLogin = () => {
-    dispatch(setShowLogin(!showLogin));
-  };
+    // Realiza la limpieza del listener cuando el componente se desmonte
+    return () => unsubscribe();
+  }, [auth]);
 
   return (
     <>
-      <div data-theme={theme} className="dark:bg-slate-600">
-        {showLogin ? (
-          <Login />
-        ) : (
-          <>
-            <Navbar />
-            <Routing />
-          </>
-        )}
-      </div>
+      <Navbar />
+      <Routing />
     </>
+
   );
 };
 export default MainLayout;

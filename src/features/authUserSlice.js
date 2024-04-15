@@ -15,7 +15,7 @@ export const authUserSlice = createSlice({
       state.isRegister = action.payload;
     },
     setIsLogin: (state, action) => {
-      state.isRegister = action.payload;
+      state.isLogin = action.payload;
     },
     setAuthUser: (state, action) => {
       state.user = action.payload;
