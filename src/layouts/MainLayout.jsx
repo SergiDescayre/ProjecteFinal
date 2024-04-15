@@ -17,11 +17,12 @@ const MainLayout = () => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        dispatch(setAuthUser(user))
+        const userObject = {
+          email:user.email,
+          password:user.password
+        }
         dispatch(setIsLogin(true))
-      } else {
-        // No hay usuario logueado
-        console.log("no hay usuario")
+        dispatch(setAuthUser(userObject))
       }
     });
 

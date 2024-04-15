@@ -10,7 +10,7 @@ const DarkMode = () => {
   
     useEffect(() => {
       const html = document.querySelector("html");
-    isDarkMode ? html.classList.add("dark") : html.classList.remove("dark");
+      isDarkMode ? html.classList.add("dark") : html.classList.remove("dark");
 
     }, [isDarkMode]);
       
