@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import appFirebase from "../credentials";
-//import {useNavigate} from "react-router-dom"
+import {useNavigate} from "react-router-dom"
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -20,9 +20,17 @@ import logo from "../assets/logo_dark.png";
 const auth = getAuth(appFirebase);
 
 const Login = () => {
+
+  useEffect(() => {
+    document.querySelector("nav").style.display="none"
+    return () => {
+      // Acciones a realizar al desmontar el componente
+      document.querySelector("nav").style.display="block"
+    };
+  },[])
   const { isRegister } = useSelector((state) => state.authUser);
   const dispatch = useDispatch();
-  //const navigate = useNavigate()
+  const navigate = useNavigate()
 
   const [user, setUser] = useState({
     email: "",
@@ -54,8 +62,7 @@ const Login = () => {
       try {
         await createUserWithEmailAndPassword(auth, user.email, user.password);
         dispatch(setIsLogin(true));
-        console.log("loguejat");
-        //navigate("/")
+        navigate("/")
       } catch (error) {
         switch (error.code) {
           case "auth/weak-password":
@@ -74,7 +81,7 @@ const Login = () => {
       try {
         await signInWithEmailAndPassword(auth, user.email, user.password);
         dispatch(setIsLogin(true));
-        console.log("loguejat");
+        navigate("/")
       } catch (error) {
         switch (error.code) {
           case "auth/invalid-email":
@@ -163,6 +170,7 @@ const Login = () => {
         >
           {error}
         </div>
+        {user.email}
       </div>
     </section>
   );

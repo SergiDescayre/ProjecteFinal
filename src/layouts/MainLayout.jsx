@@ -6,6 +6,7 @@ import { setShowLogin } from "../features/authUserSlice";
 
 import { festivales } from "../data/festivales";
 import ListFestivals from "../pages/ListFestivals";
+import Routing from "../routes/Routing";
 
 
 const MainLayout = () => {
@@ -13,13 +14,9 @@ const MainLayout = () => {
   const dispatch = useDispatch();
   const [theme, isTheme] = useState("ligth");
 
-
-
   const buscador = festivales.filter(
     (fest) => fest.modality.includes("Lindy Hop") || fest.modality.includes("")
   );
-
-
 
   const { showLogin } = useSelector((state) => state.authUser);
   const isLogin = true;
@@ -35,10 +32,7 @@ const MainLayout = () => {
         ) : (
           <>
             <Navbar />
-            <button onClick={handleShowLogin} className="btn btn-primary">
-              mostrar login
-            </button>
-            <ListFestivals />
+            <Routing />
           </>
         )}
       </div>
