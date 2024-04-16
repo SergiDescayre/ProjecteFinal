@@ -9,11 +9,10 @@ import { setAuthUser, setIsLogin } from "../features/authUserSlice";
 import Navbar from "../components/Navbar";
 import Routing from "../routes/Routing";
 
-const auth = getAuth(appFirebase);
-
 const MainLayout = () => {
-  const dispatch = useDispatch()
 
+  const dispatch = useDispatch()
+  const auth = getAuth(appFirebase);
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {

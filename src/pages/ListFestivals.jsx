@@ -23,10 +23,8 @@ const ListFestivals = () => {
         arrayFestivals.push({id:doc.id, ...doc.data()})
     });
     setFestivals(arrayFestivals)
-   
   };
   
-
   return (
     <div>
         {festivals.map(fest => {

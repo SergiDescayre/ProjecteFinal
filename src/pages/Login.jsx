@@ -17,10 +17,12 @@ import {
 
 import logo from "../assets/logo_dark.png";
 
-const auth = getAuth(appFirebase);
+
 
 const Login = () => {
 
+
+  const auth = getAuth(appFirebase);
   useEffect(() => {
     document.querySelector("nav").style.display="none"
     return () => {
