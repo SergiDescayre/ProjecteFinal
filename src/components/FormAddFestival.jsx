@@ -5,8 +5,6 @@ import appFirebase from "../credentials"
 import { getAuth } from "firebase/auth";
 import { useNavigate } from "react-router-dom"
 
-
-
 const formAddFestival = () => {
 
   const navigate = useNavigate()
@@ -28,15 +26,15 @@ const formAddFestival = () => {
   };
 
   //subir imagen a storage y subir festival
-  const uploadImageToStorage = async (img) => {
+  const uploadImageToStorage = async () => {
     const auth = getAuth(appFirebase)
     const storage = getStorage()
     try {
-      if (img === "") {
+      if (image === "") {
         return alert("debe haver imagen")
       }
-      const storageRef = ref(storage, img.name)
-      await uploadBytes(storageRef, img)
+      const storageRef = ref(storage, image.name)
+      await uploadBytes(storageRef, image)
       const imageUrl = await getDownloadURL(storageRef)
       const db = getFirestore(appFirebase)
       await addDoc(collection(db, "festivals"), {
@@ -49,7 +47,7 @@ const formAddFestival = () => {
         img: imageUrl,
         link: url
       });
-      
+
       navigate("/festivales")
     } catch (error) {
       console.log(error)
@@ -60,7 +58,7 @@ const formAddFestival = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    uploadImageToStorage(image)
+    uploadImageToStorage()
 
   };
 
@@ -99,7 +97,7 @@ const formAddFestival = () => {
                 <input
                   type="checkbox"
                   value="Lindy Hop"
-                  className="checkbox"
+                  className="toggle toggle-sm"
                   onChange={handleCheckBox}
                 />
               </div>
@@ -108,7 +106,7 @@ const formAddFestival = () => {
                 <input
                   type="checkbox"
                   value="Blues"
-                  className="checkbox"
+                  className="toggle toggle-sm"
                   onChange={handleCheckBox}
                 />
               </div>
@@ -117,7 +115,7 @@ const formAddFestival = () => {
                 <input
                   type="checkbox"
                   value="Balboa"
-                  className="checkbox"
+                  className="toggle toggle-sm"
                   onChange={handleCheckBox}
                 />
               </div>

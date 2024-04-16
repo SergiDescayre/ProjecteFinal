@@ -96,7 +96,7 @@ function Navbar() {
       </div>
 
       {/* Menús desplegables (solo visibles en dispositivos móviles) */}
-      <div className={`lg:hidden ${menuOpen ? "" : "hidden"}`}>
+      <div className={`md:hidden ${menuOpen ? "" : "hidden"}`}>
         <div className="flex flex-col items-center">
           <NavLink to="/" className="text-orange-200 px-4 py-2">
             Inicio
