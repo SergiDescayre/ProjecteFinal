@@ -29,8 +29,8 @@ const ListFestivals = () => {
     <div>
         {festivals.map(fest => {
             return (
-                <div>
-                    <img key={fest.id} className="w-[250px] h-[150px] object-cover" src={fest.img} alt={fest.name} />
+                <div key={fest.id}>
+                    <img  className="w-[250px] h-[150px] object-cover" src={fest.img} alt={fest.name} />
                 </div>
             )
         })}
