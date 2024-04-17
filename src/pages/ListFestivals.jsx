@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import appFirebase from "../credentials";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
+import CardFestival from "../components/CardFestival";
 
 const ListFestivals = () => {
     const [festivals, setFestivals] = useState([])
@@ -26,12 +27,10 @@ const ListFestivals = () => {
   };
   
   return (
-    <div>
+    <div className ="flex flex-wrap gap-10 justify-center mt-10">
         {festivals.map(fest => {
             return (
-                <div key={fest.id}>
-                    <img  className="w-[250px] h-[150px] object-cover" src={fest.img} alt={fest.name} />
-                </div>
+                <CardFestival key={fest.id} fest={fest} />
             )
         })}
     </div>

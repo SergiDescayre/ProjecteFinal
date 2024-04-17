@@ -128,7 +128,7 @@ const formAddFestival = () => {
               <input
                 id="data_start"
                 className="input input-bordered w-full"
-                type="date"
+                type="datetime-local"
                 onChange={(e) => setDataStart(e.target.value)}
                 required
               />
@@ -138,7 +138,7 @@ const formAddFestival = () => {
               <input
                 id="data_end"
                 className="input input-bordered w-full"
-                type="date"
+                type="datetime-local"
                 onChange={(e) => setDataEnd(e.target.value)}
                 required
               />
