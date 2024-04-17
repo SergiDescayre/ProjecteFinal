@@ -45,7 +45,9 @@ const formAddFestival = () => {
         data_start: dataStart,
         data_end: dataEnd,
         img: imageUrl,
-        link: url
+        link: url,
+        isFavorite:false,
+        attend:false
       });
 
       navigate("/festivales")

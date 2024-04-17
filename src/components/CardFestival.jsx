@@ -3,6 +3,7 @@ import CountDawn from "./CountDawn"
 import DateFestival from "./DateFestival"
 
 const CardFestival = ({fest}) => {
+    console.log(fest)
   return (
 <div className=" card card-compact w-72 bg-base-100 shadow-xl overflow-hidden">
   <div className="h-40 bg-cover bg-center " style={{backgroundImage: 'url('+ fest.img + ')'}}>
