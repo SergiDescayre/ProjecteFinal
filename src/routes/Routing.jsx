@@ -3,6 +3,7 @@ import Home from "../pages/Home"
 import Login from "../pages/Login"
 import ListFestivals from "../pages/ListFestivals"
 import AddFestival from "../pages/AddFestival"
+import MyFestivals from "../pages/MyFestivals"
 
 const Routing = () => {
   return (
@@ -11,6 +12,7 @@ const Routing = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/festivales" element={<ListFestivals/>} />
       <Route path="/addFestival" element={<AddFestival/>} />
+      <Route path="/myFestivals" element={<MyFestivals />} />
     </Routes>
   )
 }

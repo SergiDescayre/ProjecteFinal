@@ -35,25 +35,25 @@ const CountDawn = ({date}) => {
   }, []);
     return (
         <div className="grid grid-cols-4 gap-1 text-center p-3">
-            <div className="flex flex-col p-2 bg-zinc-950 rounded-box text-orange-200 items-center w-18 ">
+            <div className="flex flex-col p-2 text-orange-200 items-center w-18 ">
                 <span className="countdown text-2xl">
                     <span style={{ "--value": timeRemaining.days }}></span>
                 </span>
                 <span className="text-xs">Dias</span>
             </div>
-            <div className="flex flex-col p-2 bg-zinc-950 rounded-box text-orange-200 items-center w-18 ">
+            <div className="flex flex-col p-2  text-orange-200 items-center w-18 ">
                 <span className="countdown text-2xl">
                     <span style={{ "--value": timeRemaining.hours }}></span>
                 </span>
                 <span className="text-xs">Horas</span>
             </div>
-            <div className="flex flex-col p-2 bg-zinc-950 rounded-box text-orange-200 items-center w-18 ">
+            <div className="flex flex-col p-2  text-orange-200 items-center w-18 ">
                 <span className="countdown text-2xl">
                     <span style={{ "--value": timeRemaining.minutes }}></span>
                 </span>
                 <span className="text-xs">Min</span>
             </div>
-            <div className="flex flex-col p-2 bg-zinc-950 rounded-box text-orange-200 items-center w-18 ">
+            <div className="flex flex-col p-2  text-orange-200 items-center w-18 ">
                 <span className="countdown text-2xl">
                     <span style={{ "--value": timeRemaining.seconds }}></span>
                 </span>

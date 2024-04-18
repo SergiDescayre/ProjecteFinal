@@ -50,8 +50,8 @@ function Navbar() {
     <nav className="bg-zinc-950 p-4">
       <div className="container mx-auto flex justify-between items-center">
         {/* Logo */}
-        <div className="flex-shrink-0 lg:justify-center lg:w-auto">
-          <img className="h-[60px] hidden md:block " src={logo} alt="Logo" />
+        <div className="flex-shrink-0 lg:justify-center lg:w-auto hidden md:block">
+          <img className="h-[60px]  " src={logo} alt="Logo" />
         </div>
 
         {/* Icono de hamburguesa (solo visible en dispositivos móviles) */}
@@ -79,15 +79,24 @@ function Navbar() {
 
         {/* Icono de login (alineado a la derecha) */}
         {isLogin ? (
-          <div className="flex flex-col items-end ml-auto">
-            <img
-              className="w-6"
-              onClick={handleLogOut}
-              src={logout}
-              alt="logout"
-            />
-            <span className="text-orange-200">{getUsernName(user.email)}</span>
+          <div className="dropdown dropdown-end">
+            <div tabIndex={0} role="button" className=""> <span className="text-orange-200">{getUsernName(user.email)}</span></div>
+            <div tabIndex={0} className=" flex flex-col gap-3 items-end dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-32 mt-10">
+              <NavLink to="myFestivals">Mis festivales</NavLink>
+              <div className="cursor-pointer">
+                <img
+                  className="w-6"
+                  onClick={handleLogOut}
+                  src={logout}
+                  alt="logout"
+                />
+              </div>
+
+            </div>
           </div>
+
+
+
         ) : (
           <div className="flex flex-col ml-auto">
             <img onClick={handleLogin} src={login} alt="login" />

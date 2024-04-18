@@ -2,27 +2,35 @@ import { useState } from "react"
 import heart from "../assets/heart.svg"
 import heartFavorite from "../assets/heartFavorite.svg"
 import appFirebase from "../credentials"
+import {useSelector} from "react-redux"
 import { getAuth } from "firebase/auth"
 import { getFirestore,collection, addDoc, query, where, getDocs, deleteDoc} from "firebase/firestore"
 
 const ButtonFavorite = ({fest}) => {
-  const auth = getAuth(appFirebase).currentUser.uid
+  const {isLogin} = useSelector(state => state.authUser)
+ 
+  
   const firestore = getFirestore(appFirebase)
     const [isFavorite, setIsFavorite] = useState(false)
   
     const handleFavorites =  (id) => {
-      setIsFavorite(!isFavorite)
-      !isFavorite ? addFavorite() : deleteFavorite(id)
+      if(isLogin){
+        setIsFavorite(!isFavorite)
+        !isFavorite ? addFavorite() : deleteFavorite(id)
+      }else{alert("debes iniciar sesion")}
+    
       }
     
 
-      const addFavorite = async (id) => {
+      const addFavorite = async () => {
         try {
+          const auth = getAuth(appFirebase).currentUser.uid
           const db = getFirestore(appFirebase);
           await addDoc(collection(db, "favorites"), {
-            ...fest, userIdFavorite:auth
+            ...fest,
+            idUserFavorite : auth
           });
-          console.log("documento añadido con ID: "+ fest.id)
+          console.log("documento añadido")
         } catch (error) {
           console.error("Error al agregar favorito:", error);
         }
