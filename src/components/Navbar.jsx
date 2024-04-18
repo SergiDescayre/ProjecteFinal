@@ -72,9 +72,7 @@ function Navbar() {
           <NavLink to="/addfestival" className="text-orange-200 px-4 py-2">
             Registrar festival
           </NavLink>
-          <a href="#" className="text-orange-200 px-4 py-2">
-            Contacto
-          </a>
+         
         </div>
 
         {/* Icono de login (alineado a la derecha) */}
@@ -85,7 +83,8 @@ function Navbar() {
           </div>
             <div tabIndex={0} className=" flex flex-col gap-3 items-end dropdown-content z-[1] p-2 shadow bg-zinc-900 text-orange-200 rounded-box w-32 mt-10">
               <NavLink to="myFestivals">Mis festivales</NavLink>
-              <div className="cursor-pointer">
+              <div className="cursor-pointer flex gap-2">
+                <span>Salir </span>
                 <img
                   className="w-6"
                   onClick={handleLogOut}
@@ -115,19 +114,11 @@ function Navbar() {
           <NavLink to="/festivales" className="text-orange-200 px-4 py-2">
             Festivales
           </NavLink>
-          <a
-            href="#"
-            className="text-orange-100 hover:text-orange-200 px-4 py-2"
-          >
-            Servicios
-          </a>
-          <a
-            href="#"
-            className="text-orange-100 hover:text-orange-200 px-4 py-2"
-          >
-            Contacto
-          </a>
-        </div>
+          <NavLink to="/addfestival" className="text-orange-200 px-4 py-2">
+            Registrar festival
+          </NavLink>
+        
+      </div>
       </div>
     </nav>
   );

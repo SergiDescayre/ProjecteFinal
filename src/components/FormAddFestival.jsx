@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { addDoc, collection, getFirestore } from "firebase/firestore";
+import { addDoc, collection, doc, getFirestore, updateDoc } from "firebase/firestore";
 import appFirebase from "../credentials"
 import { getAuth } from "firebase/auth";
 import { useNavigate } from "react-router-dom"
@@ -27,17 +27,20 @@ const formAddFestival = () => {
 
   //subir imagen a storage y subir festival
   const uploadImageToStorage = async () => {
-    const auth = getAuth(appFirebase)
-    const storage = getStorage()
+    const auth = getAuth(appFirebase);
+    const storage = getStorage();
     try {
       if (image === "") {
-        return alert("debe haver imagen")
+        return alert("Debe haber una imagen");
       }
-      const storageRef = ref(storage, image.name)
-      await uploadBytes(storageRef, image)
-      const imageUrl = await getDownloadURL(storageRef)
-      const db = getFirestore(appFirebase)
-      await addDoc(collection(db, "festivals"), {
+  
+      const storageRef = ref(storage, image.name);
+      await uploadBytes(storageRef, image);
+      const imageUrl = await getDownloadURL(storageRef);
+  
+      const db = getFirestore(appFirebase);
+      // Añadir el documento a la colección "festivals" y obtener el ID asignado
+      const docRef = await addDoc(collection(db, "festivals"), {
         userId: auth.currentUser.uid,
         name,
         city,
@@ -46,17 +49,24 @@ const formAddFestival = () => {
         data_end: dataEnd,
         img: imageUrl,
         link: url,
-        isFavorite:false,
-        attend:false
+        isFavorite: false,
+        attend: false
       });
-
-      navigate("/festivales")
+  
+      // Obtener el ID del documento recién creado
+      const docId = docRef.id;
+  
+      // Actualizar el documento para incluir el ID
+      await updateDoc(doc(db, "festivals", docId), {
+        docId: docId
+      });
+  
+      // Redirigir a la página de festivales
+      navigate("/festivales");
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-
-
-  }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
