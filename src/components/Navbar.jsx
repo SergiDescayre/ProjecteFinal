@@ -24,8 +24,8 @@ function Navbar() {
   const { user, isLogin } = useSelector((state) => state.authUser);
 
   const getUsernName = (email) => {
-    const ArrayUserName = email.split("@");
-    const userName = ArrayUserName[0];
+    const ArrayUserName = email.split("");
+    const userName = ArrayUserName[0].toUpperCase();
     return userName;
   };
 
@@ -80,8 +80,10 @@ function Navbar() {
         {/* Icono de login (alineado a la derecha) */}
         {isLogin ? (
           <div className="dropdown dropdown-end">
-            <div tabIndex={0} role="button" className=""> <span className="text-orange-200">{getUsernName(user.email)}</span></div>
-            <div tabIndex={0} className=" flex flex-col gap-3 items-end dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-32 mt-10">
+          <div tabIndex={0} role="button" className ="border-2 border-orange-200 w-8 h-8 rounded-full flex items-center justify-center">
+          <div   className=""> <span className="text-orange-200">{getUsernName(user.email)}</span></div>
+          </div>
+            <div tabIndex={0} className=" flex flex-col gap-3 items-end dropdown-content z-[1] p-2 shadow bg-zinc-900 text-orange-200 rounded-box w-32 mt-10">
               <NavLink to="myFestivals">Mis festivales</NavLink>
               <div className="cursor-pointer">
                 <img

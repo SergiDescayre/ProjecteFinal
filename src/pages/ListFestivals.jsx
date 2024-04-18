@@ -6,6 +6,8 @@ import CardFestival from "../components/CardFestival";
 const ListFestivals = () => {
     const [festivals, setFestivals] = useState([])
 
+    const showButtonAddFavorite = true
+
     useEffect(() => {
         getFestivals()
     }, [])
@@ -30,7 +32,7 @@ const ListFestivals = () => {
     <div className ="flex flex-wrap gap-10 justify-center mt-10">
         {festivals.map(fest => {
             return (
-                <CardFestival key={fest.id} fest={fest} />
+                <CardFestival key={fest.id} fest={fest} showButtonAddFavorite={showButtonAddFavorite} />
             )
         })}
     </div>
