@@ -32,7 +32,7 @@ const MyFestivals = () => {
         loadFavorites()
         
       },[])
-      console.log(favorites)
+  
 
   return (
     <div className ="flex flex-wrap gap-10 justify-center mt-10">

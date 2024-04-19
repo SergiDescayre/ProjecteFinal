@@ -8,45 +8,12 @@ import { getFirestore,collection, addDoc, query, where, getDocs, deleteDoc} from
 
 const ButtonFavorite = ({fest}) => {
   const {isLogin} = useSelector(state => state.authUser)
-    const firestore = getFirestore(appFirebase)
     const [isFavorite, setIsFavorite] = useState(false)
-    const [favoritesStatus, setFavoritesStatus] = useState([]);
-
-    useEffect(()=> {
-      checkFavoritesStatus();
-      handleStatus(fest.docId)
-    },[favoritesStatus])
-
-  
-
-    const checkFavoritesStatus = async () => {
-      const db = getFirestore();
-      try {
-        const festivalsRef = collection(db, 'favorites');
-        const q = query(festivalsRef);
-        const querySnapshot = await getDocs(q);
-
-        const favoritesData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        const favoritesStatus = favoritesData.map(festival => ({
-          id: festival.id,
-          name: festival.name,
-          isFavorite: festival.isFavorite
-        }));
-        
-        setFavoritesStatus(favoritesStatus);
-      } catch (error) {
-        console.error('Error al comprobar el estado de los festivales favoritos:', error);
-      }
-    };
-
-
-    const handleStatus = (id, userId) => {
-        favoritesStatus.map(favorite => {
-          if(favorite.id === id && favorite.IdUserFavorite === userId ){
-            setIsFavorite(favorite.isFavorite)
-          }
-        })
-    }
+    
+    useEffect(() => {
+      checkFavoriteStatus();
+    }, []);
+ 
     const handleFavorites =  (id) => {
       if(isLogin){
         setIsFavorite(true)
@@ -80,6 +47,29 @@ const ButtonFavorite = ({fest}) => {
           console.log("documento añadido")
         } catch (error) {
           console.error("Error al agregar favorito:", error);
+        }
+      };
+
+      const checkFavoriteStatus = async () => {
+        if (!isLogin) return; // Si el usuario no ha iniciado sesión, no hay favoritos que cargar
+      
+        try {
+          const auth = getAuth(appFirebase).currentUser.uid;
+          const db = getFirestore(appFirebase);
+          const querySnapshot = await getDocs(
+            query(
+              collection(db, "favorites"),
+              where("docId", "==", fest.docId),
+              where("idUserFavorite", "==", auth)
+            )
+          );
+      
+          if (!querySnapshot.empty) {
+            //setFavoritesStatus(true); // Si el festival ya es un favorito, actualiza el estado
+            setIsFavorite(true);
+          }
+        } catch (error) {
+          console.error("Error al verificar el estado del favorito:", error);
         }
       };
 
