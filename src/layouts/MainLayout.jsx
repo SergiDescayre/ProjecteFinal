@@ -8,6 +8,7 @@ import { setAuthUser, setIsLogin } from "../features/authUserSlice";
 
 import Navbar from "../components/Navbar";
 import Routing from "../routes/Routing";
+import Footer from "../components/Footer";
 
 const MainLayout = () => {
 
@@ -30,10 +31,11 @@ const MainLayout = () => {
   }, [auth]);
 
   return (
-    <>
+    <div className="bg-stone-300 h-screen">
       <Navbar />
       <Routing />
-    </>
+      <Footer />
+    </div>
 
   );
 };

@@ -16,6 +16,7 @@ import {
 } from "../features/authUserSlice.js";
 
 import logo from "../assets/logo_dark.png";
+import logoLigth from "../assets/logo_ligth.png"
 
 
 
@@ -25,9 +26,12 @@ const Login = () => {
   const auth = getAuth(appFirebase);
   useEffect(() => {
     document.querySelector("nav").style.display="none"
+    document.querySelector("footer").style.display="none"
     return () => {
       // Acciones a realizar al desmontar el componente
+      document.querySelector("footer").style.display="block"
       document.querySelector("nav").style.display="block"
+      
     };
   },[])
   const { isRegister } = useSelector((state) => state.authUser);
@@ -100,9 +104,10 @@ const Login = () => {
 
   return (
     <section className="container_login flex justify-center items-center h-screen ">
-      <div className="w-screen flex flex-col justify-around h-screen  md:card md:h-[700px]  bg-orange-200  px-5 md:w-[400px] ">
+      <div className="bg-stone-800 bg-opacity-60 w-screen h-screen flex justify-center items-center">
+      <div className=" border border-orange-200 w-screen flex flex-col justify-around h-screen  md:card md:h-[700px]  bg-stone-800  px-5 md:w-[500px] md:px-10 ">
         <div>
-          <img src={logo} alt="logo" className=" mx-auto" />
+          <img src={logoLigth} alt="logo" className=" mx-auto" />
         </div>
         <div>
           <form
@@ -110,7 +115,7 @@ const Login = () => {
             noValidate
             className="grid grid-cols-1 gap-6"
           >
-            <label className="input input-bordered flex items-center gap-2">
+            <label className="input input-bordered flex items-center gap-2 bg-stone-200 text-stone-900">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 16 16"
@@ -129,7 +134,7 @@ const Login = () => {
                 onChange={handleChange}
               />
             </label>
-            <label className="input input-bordered flex items-center gap-2">
+            <label className="input input-bordered flex items-center gap-2  bg-stone-200 text-stone-900">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 16 16"
@@ -151,28 +156,29 @@ const Login = () => {
                 onChange={handleChange}
               />
             </label>
-            <button className="btn btn-neutral">
+            <button className="btn border-none bg-stone-950 hover:bg-stone-700 text-orange-200">
               {isRegister ? "Inicia sesión" : "Registro"}
             </button>
           </form>
           <div className="grid grid-cols-2 items-center mt-5">
-            <p className="">
+            <p className="text-orange-200">
               {isRegister ? "¿No tienes cuenta?" : "¿Ya tienes cuenta?"}
             </p>
-            <button onClick={handleIsRegister} className=" btn btn-neutral">
+            <button onClick={handleIsRegister} className=" btn border-none bg-stone-950 hover:bg-stone-700 text-orange-200">
               {isRegister ? "Registro" : "Inicia sesión"}
             </button>
           </div>
         </div>
 
         <div
-          className={` min-h-12 border-2 rounded-lg border-red-500  text-red-500 flex justify-center items-center mt-10 ${
+          className={` min-h-12 border-2 rounded-lg border-orange-200  text-orange-200 flex justify-center items-center mt-10 ${
             error ? "visile " : "invisible"
           }`}
         >
           {error}
         </div>
         {user.email}
+      </div>
       </div>
     </section>
   );
