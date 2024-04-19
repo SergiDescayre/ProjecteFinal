@@ -26,7 +26,7 @@ const CardFestival = ({fest,showButtonDeleteFavorite,showButtonAddFavorite}) => 
     </div>
   </div>
   <div className="card-footer">
-    <CountDawn date = {fest.data_start} />
+    <CountDawn date = {fest.data_start} docId={fest.docId} />
   </div>
 
   </div>

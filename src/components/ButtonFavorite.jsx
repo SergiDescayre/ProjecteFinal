@@ -4,7 +4,7 @@ import heartFavorite from "../assets/heartFavorite.svg"
 import appFirebase from "../credentials"
 import {useSelector} from "react-redux"
 import { getAuth } from "firebase/auth"
-import { getFirestore,collection, addDoc, query, where, getDocs, deleteDoc} from "firebase/firestore"
+import { getFirestore,collection, addDoc, query, where, getDocs} from "firebase/firestore"
 
 const ButtonFavorite = ({fest}) => {
   const {isLogin} = useSelector(state => state.authUser)
@@ -65,6 +65,7 @@ const ButtonFavorite = ({fest}) => {
           );
       
           if (!querySnapshot.empty) {
+
             //setFavoritesStatus(true); // Si el festival ya es un favorito, actualiza el estado
             setIsFavorite(true);
           }
