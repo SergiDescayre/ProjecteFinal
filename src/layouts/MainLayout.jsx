@@ -31,11 +31,11 @@ const MainLayout = () => {
   }, [auth]);
 
   return (
-    <div className="bg-stone-300 h-screen">
+    <>
       <Navbar />
       <Routing />
       <Footer />
-    </div>
+    </>
 
   );
 };

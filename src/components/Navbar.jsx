@@ -44,11 +44,10 @@ function Navbar() {
   const handleLogOut = async () => {
     await signOut(auth);
     dispatch(setIsLogin(false));
-    navigate("/")
   };
 
   return (
-    <nav className="bg-stone-800 p-4">
+    <nav className="bg-zinc-950 p-4">
       <div className="container mx-auto flex justify-between items-center">
         {/* Logo */}
         <div className="flex-shrink-0 lg:justify-center lg:w-auto hidden md:block">
@@ -67,9 +66,7 @@ function Navbar() {
           <NavLink to="/" className="text-orange-200 px-4 py-2">
             Inicio
           </NavLink>
-          <NavLink to="/festivales" className="text-orange-200 px-4 py-2">
-            Festivales
-          </NavLink>
+      
           <NavLink to="/addfestival" className="text-orange-200 px-4 py-2">
             Registrar festival
           </NavLink>
@@ -82,13 +79,12 @@ function Navbar() {
           <div tabIndex={0} role="button" className ="border-2 border-orange-200 w-8 h-8 rounded-full flex items-center justify-center">
           <div   className=""> <span className="text-orange-200">{getUsernName(user.email)}</span></div>
           </div>
-            <div tabIndex={0} className=" flex flex-col gap-3 items-end dropdown-content z-[1] p-2 shadow bg-stone-800 text-orange-200 rounded-box w-32 mt-10">
+            <div tabIndex={0} className=" flex flex-col gap-3 items-end dropdown-content z-[1] p-2 shadow bg-zinc-950 text-orange-200 rounded-box w-32 mt-10">
               <NavLink to="myFestivals">Mis festivales</NavLink>
-              <div className="cursor-pointer flex gap-2">
+              <div onClick={handleLogOut} className="cursor-pointer flex gap-2">
                 <span>Salir </span>
                 <img
                   className="w-6"
-                  onClick={handleLogOut}
                   src={logout}
                   alt="logout"
                 />
@@ -112,9 +108,7 @@ function Navbar() {
           <NavLink to="/" className="text-orange-200 px-4 py-2">
             Inicio
           </NavLink>
-          <NavLink to="/festivales" className="text-orange-200 px-4 py-2">
-            Festivales
-          </NavLink>
+        
           <NavLink to="/addfestival" className="text-orange-200 px-4 py-2">
             Registrar festival
           </NavLink>

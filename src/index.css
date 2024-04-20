@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body{
+  background-color: #e7e5e4;
+}
+
 .container_login{
   background-image: url("./assets/bgLogin.jpeg");
   background-position: center;

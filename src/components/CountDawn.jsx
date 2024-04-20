@@ -41,11 +41,10 @@ const CountDawn = ({date,docId}) => {
   }
   
   const deletePastFestivals = () => {
-    if(timeRemaining.distance < "0" ){
-    deleteFestival()
-    return
+ 
+    if(timeRemaining.distance < 0){
+      deleteFestival()
     }
-
   }
   const deleteFestival = async () => {
     try {

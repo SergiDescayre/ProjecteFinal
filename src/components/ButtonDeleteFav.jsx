@@ -10,7 +10,6 @@ const ButtonDeleteFav = ({fest}) => {
     }
     
       const deleteFavorite = async (id) => {
-        console.log(id)
         try {
          
           const q = query(collection(firestore, 'favorites'), where('id', '==', id));

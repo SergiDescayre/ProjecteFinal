@@ -29,7 +29,7 @@ const ListFestivals = () => {
   };
   
   return (
-    <div className ="flex flex-wrap gap-10 justify-center mt-10">
+    <div className ="flex flex-wrap gap-10 justify-center m-10">
         {festivals.map(fest => {
             return (
                 <CardFestival key={fest.id} fest={fest} showButtonAddFavorite={showButtonAddFavorite} />

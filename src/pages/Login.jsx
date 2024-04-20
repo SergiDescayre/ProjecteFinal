@@ -104,8 +104,8 @@ const Login = () => {
 
   return (
     <section className="container_login flex justify-center items-center h-screen ">
-      <div className="bg-stone-800 bg-opacity-60 w-screen h-screen flex justify-center items-center">
-      <div className=" border border-orange-200 w-screen flex flex-col justify-around h-screen  md:card md:h-[700px]  bg-stone-800  px-5 md:w-[500px] md:px-10 ">
+      <div className="bg-zinc-800 bg-opacity-60 w-screen h-screen flex justify-center items-center">
+      <div className=" border-orange-200 w-screen flex flex-col justify-around h-screen  md:card md:h-[700px]  bg-zinc-900  px-5 md:w-[500px] md:px-10 ">
         <div>
           <img src={logoLigth} alt="logo" className=" mx-auto" />
         </div>
@@ -115,7 +115,7 @@ const Login = () => {
             noValidate
             className="grid grid-cols-1 gap-6"
           >
-            <label className="input input-bordered flex items-center gap-2 bg-stone-200 text-stone-900">
+            <label className="input input-bordered flex items-center gap-2 bg-stone-200 text-zinc-900">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 16 16"
