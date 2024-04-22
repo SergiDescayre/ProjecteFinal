@@ -23,6 +23,7 @@ const MainLayout = () => {
         }
         dispatch(setIsLogin(true))
         dispatch(setAuthUser(userObject))
+        localStorage.setItem("uid", JSON.stringify(getAuth(appFirebase).currentUser.uid))
       }
     });
 

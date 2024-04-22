@@ -44,6 +44,7 @@ function Navbar() {
   const handleLogOut = async () => {
     await signOut(auth);
     dispatch(setIsLogin(false));
+    localStorage.removeItem("uid")
   };
 
   return (

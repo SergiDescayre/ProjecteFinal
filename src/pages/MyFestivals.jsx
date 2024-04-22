@@ -4,11 +4,13 @@ import React, { useEffect, useState } from 'react'
 import { getAuth } from 'firebase/auth';
 import CardFestival from '../components/CardFestival';
 
+
 const MyFestivals = () => {
     const showButtonDeleteFavorite = true
+
     const [favorites ,setFavorites] = useState([])
     const loadFavorites = async () => {
-        const auth = getAuth(appFirebase).currentUser.uid
+        const auth = JSON.parse(localStorage.getItem("uid"))
         try {
           const db = getFirestore(appFirebase);
           const favoritesRef = collection(db, "favorites");
@@ -28,8 +30,10 @@ const MyFestivals = () => {
 
       useEffect(()=> {
         loadFavorites()
+        
       },[])
-      
+  
+
   return (
     <div className ="flex flex-wrap gap-10 justify-center m-10">
     {favorites.map(fest => {

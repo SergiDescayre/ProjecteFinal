@@ -8,6 +8,7 @@ const FestivalContext = createContext()
 const ContexProvider = ({ children }) => {
 
     const [festivals, setFestivals] = useState([])
+    const [favorites ,setFavorites] = useState([])
 
 
 
@@ -31,8 +32,10 @@ const ContexProvider = ({ children }) => {
     return (
         <FestivalContext.Provider
             value={{
+                favorites,
                 festivals,
                 getFestivals,
+                setFavorites
               
             }}>
             {children}
