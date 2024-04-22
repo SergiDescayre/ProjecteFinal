@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
-import appFirebase from "../credentials";
-import { getFirestore, collection, getDocs } from "firebase/firestore";
+import { useEffect } from "react";
+import { useFestivalContext } from "../context/FestivalContext";
 import CardFestival from "../components/CardFestival";
 
 const ListFestivals = () => {
-    const [festivals, setFestivals] = useState([])
+    const {getFestivals, festivals} = useFestivalContext()
 
     const showButtonAddFavorite = true
 
@@ -13,20 +12,7 @@ const ListFestivals = () => {
     }, [])
 
     
-    const getFestivals = async () => {
-    // Obtener una referencia a la base de datos Firestore
-    const db = getFirestore(appFirebase);
-
-    // Recuperar una colección de documentos
-    const querySnapshot = await getDocs(collection(db, "festivals"));
-    const arrayFestivals=[]
-
-    // Iterar sobre los documentos y acceder a los datos
-    querySnapshot.forEach((doc) => {
-        arrayFestivals.push({id:doc.id, ...doc.data()})
-    });
-    setFestivals(arrayFestivals)
-  };
+    
   
   return (
     <div className ="flex flex-wrap gap-10 justify-center m-10">

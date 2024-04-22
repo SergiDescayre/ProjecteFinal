@@ -1,6 +1,6 @@
 
 import ButtonDeleteFav from "./ButtonDeleteFav"
-import ButtonFavorite from "./ButtonFavorite"
+import ButtonAddFav from "./ButtonFavorite"
 import CountDawn from "./CountDawn"
 import DateFestival from "./DateFestival"
 
@@ -17,7 +17,7 @@ const CardFestival = ({fest,showButtonDeleteFavorite,showButtonAddFavorite}) => 
   <div className=" bg-zinc-900">
   <div className="flex items-center p-3">
     <h2 className="card-title uppercase  w-full ">{fest.name}</h2>
-    {showButtonAddFavorite && <ButtonFavorite fest={fest} /> }
+    {showButtonAddFavorite && <ButtonAddFav fest={fest} /> }
     {showButtonDeleteFavorite && <ButtonDeleteFav fest={fest} />}
     
     <div className="card-actions justify-end">
