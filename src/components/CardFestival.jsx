@@ -3,11 +3,18 @@ import ButtonDeleteFav from "./ButtonDeleteFav"
 import ButtonAddFav from "./ButtonFavorite"
 import CountDawn from "./CountDawn"
 import DateFestival from "./DateFestival"
+import { useNavigate } from "react-router-dom"
 
 const CardFestival = ({fest,showButtonDeleteFavorite,showButtonAddFavorite}) => {
+  const navigate = useNavigate()
+
+  const handleCard = (idFestival) => {
+    console.log(idFestival)
+    navigate(`/infoFestival/${idFestival}`)
+  }
   
   return (
-<div className="card rounded-lg min-w-72 h-72 text-orange-200 shadow-xl overflow-hidden">
+<div onClick={()=> handleCard(fest.docId)  } className="card rounded-lg min-w-72 h-72 text-orange-200 shadow-xl overflow-hidden">
   <div className="h-40 bg-cover bg-center " style={{backgroundImage: 'url('+ fest.img + ')'}}>
     <div className="flex justify-between m-2">
     <DateFestival date={fest.data_start} />

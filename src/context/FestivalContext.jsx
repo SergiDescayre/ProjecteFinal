@@ -1,17 +1,41 @@
 import { createContext, useContext, useState } from "react"
 import appFirebase from "../credentials";
-import { getFirestore, collection, getDocs } from "firebase/firestore";
+import { getFirestore, collection, getDocs, getDoc, doc } from "firebase/firestore";
 const FestivalContext = createContext()
 
 const ContexProvider = ({ children }) => {
 
     const [festivals, setFestivals] = useState([])
     const [favorites ,setFavorites] = useState([])
-    
+    const [infoFestival ,setInfoFestival]  = useState({})
+
 
     const getFilterModality = (modalityFilter) => {
         return festivals.filter(fest=> fest.modality.includes(modalityFilter))
     }
+
+    //Traer festival po IdDoc para pintar la Info
+
+    const getFestivalByDocId = async (docId) => {
+        const db = getFirestore(appFirebase)
+        try {
+            const docRef = doc(db,"festivals",docId)
+            const docSnap = await getDoc(docRef)
+
+            if (docSnap.exists()) {
+                const data = docSnap.data()
+                setInfoFestival(data)
+               
+            } else {
+                console.log("No such document!");
+            }
+
+        
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    
 
     //Traer festivales firebase
 
@@ -35,7 +59,8 @@ const ContexProvider = ({ children }) => {
             value={{
                 favorites,
                 festivals,
-               
+                infoFestival,
+                getFestivalByDocId,
                 getFestivals,
                 setFavorites,
                 getFilterModality,
