@@ -1,27 +1,27 @@
 import { useEffect } from "react";
 import { useFestivalContext } from "../context/FestivalContext";
-import CardFestival from "../components/CardFestival";
+
+import ListFestivalsModality from "../components/ListFestivalsModality";
 
 const ListFestivals = () => {
     const {getFestivals, festivals} = useFestivalContext()
-
-    const showButtonAddFavorite = true
-
     useEffect(() => {
         getFestivals()
     }, [])
 
-    
-    
+
+    const lindyHop = festivals.filter(fest => fest.modality.includes("Lindy Hop"))
+
+    const balboa = festivals.filter(fest => fest.modality.includes("Balboa"))
+
+    const blues = festivals.filter(fest => fest.modality.includes("Blues"))
   
   return (
-    <div className ="flex flex-wrap gap-10 justify-center m-10">
-        {festivals.map(fest => {
-            return (
-                <CardFestival key={fest.id} fest={fest} showButtonAddFavorite={showButtonAddFavorite} />
-            )
-        })}
-    </div>
+    <>
+    <ListFestivalsModality title={"lindy Hop"} modality = {lindyHop} />
+    <ListFestivalsModality title={"Blues"} modality = {blues} />
+    <ListFestivalsModality title={"Balboa"} modality = {balboa} />
+    </>
    
   )
 }

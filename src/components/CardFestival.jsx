@@ -7,7 +7,7 @@ import DateFestival from "./DateFestival"
 const CardFestival = ({fest,showButtonDeleteFavorite,showButtonAddFavorite}) => {
   
   return (
-<div className="card rounded-lg w-72 h-72 text-orange-200 shadow-xl overflow-hidden">
+<div className="card rounded-lg min-w-72 h-72 text-orange-200 shadow-xl overflow-hidden">
   <div className="h-40 bg-cover bg-center " style={{backgroundImage: 'url('+ fest.img + ')'}}>
     <div className="flex justify-between m-2">
     <DateFestival date={fest.data_start} />

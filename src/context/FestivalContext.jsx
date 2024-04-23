@@ -1,16 +1,17 @@
-import { createContext, useContext, useState, useEffect } from "react"
+import { createContext, useContext, useState } from "react"
 import appFirebase from "../credentials";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
 const FestivalContext = createContext()
-
 
 const ContexProvider = ({ children }) => {
 
     const [festivals, setFestivals] = useState([])
     const [favorites ,setFavorites] = useState([])
+    
 
-
+    const getFilterModality = (modalityFilter) => {
+        return festivals.filter(fest=> fest.modality.includes(modalityFilter))
+    }
 
     //Traer festivales firebase
 
@@ -34,8 +35,11 @@ const ContexProvider = ({ children }) => {
             value={{
                 favorites,
                 festivals,
+               
                 getFestivals,
-                setFavorites
+                setFavorites,
+                getFilterModality,
+               
               
             }}>
             {children}
