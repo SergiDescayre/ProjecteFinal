@@ -28,7 +28,7 @@ const ButtonDeleteFav = ({fest}) => {
       };
   return (
     <div onClick={() => handleFavorites(fest.id)}>
-    <img src={trash} alt="trash"/>
+    <img src={trash} alt="trash" className="cursor-pointer"/>
     
 </div>
   )

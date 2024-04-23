@@ -1,7 +1,5 @@
 import { useParams } from "react-router-dom"
-import { useEffect, useState } from "react"
-import { doc, getDoc, getFirestore } from "firebase/firestore"
-import appFirebase from "../credentials"
+import { useEffect } from "react"
 
 import { useFestivalContext } from "../context/FestivalContext"
 
@@ -13,7 +11,9 @@ const InfoFestival =  () => {
     })
 
   return (
-    <div>{infoFestival.name}</div>
+    <div>{infoFestival.name}
+    <img  className="" src={infoFestival.img} alt="imgFestival" />
+    </div>
   )
 }
 

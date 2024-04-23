@@ -2,7 +2,9 @@ import React from 'react'
 import CardFestival from './CardFestival'
 
 const ListFestivalsModality = ({ title, modality,bg, color}) => {
+
     const showButtonAddFavorite = true
+
     return (
         <>
             <div className={`${bg} pt-8 `}>
@@ -13,7 +15,7 @@ const ListFestivalsModality = ({ title, modality,bg, color}) => {
 
                 </div>
                 <div className="overflow-x-hidden hover:overflow-x-scroll">
-                <div className="flex flex-no-wrap gap-10 m-5 w-[80%] mx-auto">
+                <div className="snap-mandatory snap-x flex flex-no-wrap gap-10 m-5 w-[80%] mx-auto">
                     {modality.map(fest => {
                         return (
                             <CardFestival key={fest.id} fest={fest} showButtonAddFavorite={showButtonAddFavorite} />
