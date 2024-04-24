@@ -1,8 +1,9 @@
 import React from 'react'
 import CardFestival from './CardFestival'
+import { useFestivalContext } from '../context/FestivalContext'
 
-const ListFestivalsModality = ({ title, modality,bg, color}) => {
-
+const ListFestivalsModality = ({ title, modality,bg}) => {
+    const {error} = useFestivalContext()
     const showButtonAddFavorite = true
 
     return (
@@ -16,6 +17,7 @@ const ListFestivalsModality = ({ title, modality,bg, color}) => {
                 </div>
                 <div className="overflow-x-hidden hover:overflow-x-scroll">
                 <div className="snap-mandatory snap-x flex flex-no-wrap gap-10 m-5 w-[80%] mx-auto">
+                    {modality.length === 0 && <p className='text-red-500'> {error}</p>}
                     {modality.map(fest => {
                         return (
                             <CardFestival key={fest.id} fest={fest} showButtonAddFavorite={showButtonAddFavorite} />

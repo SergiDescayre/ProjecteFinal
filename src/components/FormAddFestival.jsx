@@ -62,7 +62,7 @@ const formAddFestival = () => {
       });
   
       // Redirigir a la página de festivales
-      navigate("/festivales");
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
@@ -140,7 +140,7 @@ const formAddFestival = () => {
               <input
                 id="data_start"
                 className="input input-bordered w-full"
-                type="datetime-local"
+                type="date"
                 onChange={(e) => setDataStart(e.target.value)}
                 required
               />
@@ -150,7 +150,7 @@ const formAddFestival = () => {
               <input
                 id="data_end"
                 className="input input-bordered w-full"
-                type="datetime-local"
+                type="date"
                 onChange={(e) => setDataEnd(e.target.value)}
                 required
               />
