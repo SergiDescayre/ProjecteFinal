@@ -16,6 +16,7 @@ const formAddFestival = () => {
   const [dataEnd, setDataEnd] = useState("");
   const [image, setImage] = useState("");
   const [url, setUrl] = useState("");
+  const [description,setDescription] = useState("")
 
   const handleCheckBox = (e) => {
     if (e.target.checked) {
@@ -49,6 +50,7 @@ const formAddFestival = () => {
         data_end: dataEnd,
         img: imageUrl,
         link: url,
+        description,
         isFavorite: false,
         attend: false
       });
@@ -99,6 +101,10 @@ const formAddFestival = () => {
                 required
               />
             </div>
+          </div>
+          <div className="m-4">
+          <label>Descripción</label>
+          <textarea className="textarea textarea-bordered w-full" placeholder="Descripción"></textarea>
           </div>
 
           <div className="mx-4 mt-5 text-center">

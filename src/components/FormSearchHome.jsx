@@ -9,28 +9,31 @@ const FormSearchHome = () => {
 
   useEffect(() => {
     return () => {getFestivals()
-    setError("") }
+                   setError("") }
     ;
-  }, [city]);
+  }, [city,dataStart,dataEnd]);
 
   const handleSubmit = (e) => {
     e.preventDefault()
-      const filtered = festivals.filter(event => {
-        const start = new Date(event.data_start);
-        const end = new Date(event.data_end);
-        const rangeStart = new Date(dataStart);
-        const rangeEnd = new Date(dataEnd);
-        return event.city.toLowerCase() === city.toLowerCase() && start <= rangeEnd && end >= rangeStart;
-    });
-    if (filtered.length === 0) {
-      setError("No se encontraron eventos en el rango de fechas seleccionado.");
-    } else {
-      setError("");
-    }
     
-    setFestivals(filtered);
-  };
+    console.log(new Date(dataStart).getTime())
+    console.log(new Date(dataEnd).getTime())
+    const festivalFiltered = festivals.filter(
+      (fest) => {
+    
+        if(fest.city.toLowerCase() === city.toLowerCase() 
+        && new Date(fest.data_start) <= new Date(dataEnd)
+        && new Date(fest.data_end) >= new Date(dataStart)){
+            return fest
+        }else{
+          setError(`No hemos encontrado festivales en ${city} con estas fechas seleccionadas`)
+        }
+      }
+    );
+    setFestivals(festivalFiltered);
+
   
+  };
 
 
   return (
