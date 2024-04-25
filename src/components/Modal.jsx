@@ -11,21 +11,31 @@ const {isLogin} = useSelector(state => state.authUser )
 
 const navigate = useNavigate()
 
-const handleClose = () => {
+const handleRegister = () => {
     navigate("/login")
+}
+
+const handleClose = () => {
+  navigate("/")
+}
+
+const handleScape = (event) => {
+  if(event.key === "Escape"){
+    navigate("/")
+  }
 }
 
   return (
    
-    <dialog id="my_modal_5" className="modal modal-center">
+    <dialog onKeyDown={handleScape} id="my_modal_5" className="modal modal-center">
     <div className="modal-box bg-zinc-800">
-    <span className="py-2 text-lg">{messageModal}</span>
+    <span className="py-2 text-lg text-orange-200">{messageModal}</span>
     <div className="modal-action">
       <form method="dialog">
       
        
-        {!isLogin && <button onClick={handleClose} className="btn text-orange-200 btn-outline">Registrarse</button>}
-        <button className="btn bg-orange-200 mx-3 ">Cerrar</button>
+        {!isLogin && <button onClick={handleRegister} className="btn text-orange-200 btn-outline">Registrarse</button>}
+        <button onClick={handleClose} className="btn bg-orange-200 mx-3 ">Cerrar</button>
       </form>
     </div>
   </div>

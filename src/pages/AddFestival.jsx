@@ -1,17 +1,38 @@
 import {useSelector}  from "react-redux"
-
+import { useNavigate } from "react-router-dom"
 import FormAddFestival from '../components/FormAddFestival'
+import Modal from "../components/Modal"
+import { useFestivalContext } from "../context/FestivalContext"
+import { useEffect } from "react"
+
+ 
 
 
 const AddFestival = () => {
 
-    const {isLogin} = useSelector(state => state.authUser)
+  const navigate = useNavigate()    
+  const {setMessageModal} = useFestivalContext()
+  useEffect(()=>{
+    showModalIsNotLogin()
 
+  },[])
+
+    const {isLogin} = useSelector(state => state.authUser)
+    const showModalIsNotLogin = () => {
+      if(!isLogin){
+        document.getElementById("my_modal_5").showModal()
+        setMessageModal("Debes estar registrado para añadir festival")
+      }
+    }
+   
+
+  
   return (
-    <>
-    {isLogin 
-     ? <FormAddFestival /> : <div>Debes estar registrado</div>}  
-    </>
+    <div>
+      <Modal />
+       <FormAddFestival />
+    </div>
+
   )
 }
 

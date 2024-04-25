@@ -40,14 +40,12 @@ function Navbar() {
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
-    
   };
 
   const handleLogOut = async () => {
     await signOut(auth);
     dispatch(setIsLogin(false));
     localStorage.removeItem("uid")
-    navigate("/")
    
   };
 
