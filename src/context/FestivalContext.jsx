@@ -9,6 +9,8 @@ const ContexProvider = ({ children }) => {
     const [favorites ,setFavorites] = useState([])
     const [infoFestival ,setInfoFestival]  = useState({})
     const [error, setError] = useState("")
+    const [messageModal, setMessageModal] = useState("")
+    const [isFavorite, setIsFavorite] = useState(false)
 
 
     const getFilterModality = (modalityFilter) => {
@@ -61,7 +63,11 @@ const ContexProvider = ({ children }) => {
                 favorites,
                 festivals,
                 infoFestival,
-                error, 
+                error,
+                messageModal, 
+                isFavorite, 
+                setIsFavorite,
+                setMessageModal, 
                 setError,
                 setFestivals,
                 getFestivalByDocId,

@@ -7,6 +7,7 @@ import { setIsLogin } from "../features/authUserSlice";
 import { signOut, getAuth } from "firebase/auth";
 import appFirebase from "../credentials";
 
+
 import logo from "../assets/logo_ligth.png";
 import login from "../assets/login.svg";
 import logout from "../assets/logout.svg"
@@ -45,6 +46,7 @@ function Navbar() {
     await signOut(auth);
     dispatch(setIsLogin(false));
     localStorage.removeItem("uid")
+   
   };
 
   return (

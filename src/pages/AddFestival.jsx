@@ -1,7 +1,7 @@
 import {useSelector}  from "react-redux"
 
 import FormAddFestival from '../components/FormAddFestival'
-import { collectionGroup } from "firebase/firestore"
+
 
 const AddFestival = () => {
 
