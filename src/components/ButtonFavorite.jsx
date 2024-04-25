@@ -42,7 +42,7 @@ const ButtonFavorite = ({ fest }) => {
         )
       );
 
-      // Si ya existe el festival como favorito, no lo agregamos nuevamente
+     
       if (!querySnapshot.empty) {
         
         setMessageModal("El festival ya está en la lista de favoritos.");
