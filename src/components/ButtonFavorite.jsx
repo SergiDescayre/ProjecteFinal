@@ -44,7 +44,7 @@ const ButtonFavorite = ({ fest }) => {
 
      
       if (!querySnapshot.empty) {
-        
+        document.getElementById('my_modal_5').showModal()
         setMessageModal("El festival ya está en la lista de favoritos.");
         return;
       }
@@ -75,9 +75,8 @@ const ButtonFavorite = ({ fest }) => {
 
       if (!querySnapshot.empty) {
 
-        //setFavoritesStatus(true); // Si el festival ya es un favorito, actualiza el estado
-        setIsFavorite(true);
-      }
+      setIsFavorite(true);
+      }else(setIsFavorite(false))
     } catch (error) {
       console.error("Error al verificar el estado del favorito:", error);
     }
@@ -87,7 +86,7 @@ const ButtonFavorite = ({ fest }) => {
   return (
     <div>
       <Modal />
-      <img className="cursor-pointer" src={!isFavorite ? heart : heartFavorite} alt="favorites" onClick={() => handleFavorites(fest.docId, fest.IdUserFavorite)} />
+      <img className="cursor-pointer" src={!isFavorite ? heart : heartFavorite} alt="favorites" onClick={() => handleFavorites(fest.docId)} />
     </div>
   )
 }

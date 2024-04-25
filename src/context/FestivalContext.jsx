@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from "react"
 import appFirebase from "../credentials";
-import { getFirestore, collection, getDocs, getDoc, doc } from "firebase/firestore";
+import { getFirestore, collection, getDocs, getDoc, doc, query, where, deleteDoc } from "firebase/firestore";
 const FestivalContext = createContext()
 
 const ContexProvider = ({ children }) => {
@@ -16,6 +16,27 @@ const ContexProvider = ({ children }) => {
     const getFilterModality = (modalityFilter) => {
         return festivals.filter(fest=> fest.modality.includes(modalityFilter))
     }
+
+    //Eliminar festival de favoritos
+    
+    const deleteFavorite = async (id) => {
+        const firestore = getFirestore(appFirebase)
+        try {
+         
+          const q = query(collection(firestore, 'favorites'), where('id', '==', id));
+  
+          // Obtener documentos que cumplen con la condición
+          const querySnapshot = await getDocs(q);
+  
+          // Para cada documento encontrado, eliminarlo
+            querySnapshot.forEach(async (doc) => {
+            await deleteDoc(doc.ref);
+            console.log(`Documento eliminado con ID: ${doc.id}`);
+          });
+        } catch (error) {
+          console.error('Error al eliminar documentos:', error);
+        }
+      };
 
     //Traer festival po IdDoc para pintar la Info
 
@@ -65,7 +86,8 @@ const ContexProvider = ({ children }) => {
                 infoFestival,
                 error,
                 messageModal, 
-                isFavorite, 
+                isFavorite,
+                deleteFavorite,
                 setIsFavorite,
                 setMessageModal, 
                 setError,

@@ -23,8 +23,9 @@ const handleClose = () => {
     <div className="modal-action">
       <form method="dialog">
       
+       
+        {!isLogin && <button onClick={handleClose} className="btn text-orange-200 btn-outline">Registrarse</button>}
         <button className="btn bg-orange-200 mx-3 ">Cerrar</button>
-        {!isLogin && <button onClick={handleClose} className="btn btn-outline bg-orange-200">Registrarse</button>}
       </form>
     </div>
   </div>
