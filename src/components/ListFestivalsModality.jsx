@@ -5,6 +5,7 @@ import { useFestivalContext } from '../context/FestivalContext'
 const ListFestivalsModality = ({ title, modality,bg}) => {
     const {error} = useFestivalContext()
     const showButtonAddFavorite = true
+    modality.sort((a,b)=> new Date(a.data_start)- new Date(b.data_start))
 
     return (
         <>

@@ -21,7 +21,7 @@ const FormSearchHome = () => {
     const festivalFiltered = festivals.filter(
       (fest) => {
     
-        if(fest.city.toLowerCase() === city.toLowerCase() 
+        if((fest.city.toLowerCase() === city.toLowerCase()|| city === "") 
         && new Date(fest.data_start) <= new Date(dataEnd)
         && new Date(fest.data_end) >= new Date(dataStart)){
             return fest
