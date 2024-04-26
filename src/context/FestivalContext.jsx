@@ -11,6 +11,7 @@ const ContexProvider = ({ children }) => {
     const [error, setError] = useState("")
     const [messageModal, setMessageModal] = useState("")
     const [isFavorite, setIsFavorite] = useState(false)
+    const [coords, setCoords] = useState();
 
 
     const getFilterModality = (modalityFilter) => {
@@ -54,7 +55,6 @@ const ContexProvider = ({ children }) => {
                 console.log("No such document!");
             }
 
-        
         } catch (error) {
             console.log(error)
         }
@@ -78,7 +78,31 @@ const ContexProvider = ({ children }) => {
         setFestivals(arrayFestivals)
     };
 
-    return (
+    // Petición para obtener cordenadas de las ciudades
+
+    const getCoords =  () => {
+        const newArray = []
+
+        const apiKey = "cd3dc347cbd50183b49d880f603d2f92";
+        try {
+            festivals.map(async (city) => {
+                const response = await fetch(
+                  `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`
+                );
+                const data = await response.json();
+                newArray.push(data)
+              })
+              localStorage.setItem("coords" ,JSON.stringify(newArray))
+        } catch (error) {
+            console.log(error)
+        }
+
+        setCoords(newArray)
+        console.log(coords)
+        
+    }
+
+    return ( 
         <FestivalContext.Provider
             value={{
                 favorites,
@@ -87,6 +111,8 @@ const ContexProvider = ({ children }) => {
                 error,
                 messageModal, 
                 isFavorite,
+                coords,
+                getCoords,
                 deleteFavorite,
                 setIsFavorite,
                 setMessageModal, 
@@ -96,8 +122,6 @@ const ContexProvider = ({ children }) => {
                 getFestivals,
                 setFavorites,
                 getFilterModality,
-               
-              
             }}>
             {children}
         </FestivalContext.Provider>

@@ -73,6 +73,10 @@ function Navbar() {
           <NavLink to="/addfestival" className="text-orange-200 px-4 py-2">
             Registrar festival
           </NavLink>
+
+          <NavLink to="/calendar" className="text-orange-200 px-4 py-2">
+            Calendario
+          </NavLink>
          
         </div>
 
@@ -114,6 +118,10 @@ function Navbar() {
         
           <NavLink to="/addfestival" className="text-orange-200 px-4 py-2">
             Registrar festival
+          </NavLink>
+
+          <NavLink to="/calendar" className="text-orange-200 px-4 py-2">
+            Calendario
           </NavLink>
         
       </div>

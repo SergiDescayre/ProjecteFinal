@@ -10,11 +10,19 @@ import Navbar from "../components/Navbar";
 import Routing from "../routes/Routing";
 import Footer from "../components/Footer";
 
-const MainLayout = () => {
+import { useFestivalContext } from "../context/FestivalContext";
 
+const MainLayout = () => {
+  const {getFestivals} = useFestivalContext()
+
+  useEffect(() => {
+    getFestivals()
+  }, [])
+  
   const dispatch = useDispatch()
   const auth = getAuth(appFirebase);
   useEffect(() => {
+    
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         const userObject = {

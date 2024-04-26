@@ -1,37 +1,74 @@
-import React from 'react'
-import CardFestival from './CardFestival'
-import { useFestivalContext } from '../context/FestivalContext'
+import React, { useRef, useState, useEffect } from 'react';
+import CardFestival from './CardFestival';
+import { useFestivalContext } from '../context/FestivalContext';
 
-const ListFestivalsModality = ({ title, modality,bg}) => {
-    const {error} = useFestivalContext()
-    const showButtonAddFavorite = true
-    modality.sort((a,b)=> new Date(a.data_start)- new Date(b.data_start))
+import arrowLeft from "../assets/arrowLeft.svg"
+import arrowRight from "../assets/arrowRight.svg"
+
+const ListFestivalsModality = ({ title, modality, bg }) => {
+    const { error } = useFestivalContext();
+    const showButtonAddFavorite = true;
+    const [scrollable, setScrollable] = useState(false);
+    const containerRef = useRef(null);
+
+    useEffect(() => {
+        const container = containerRef.current;
+        if (container) {
+            setScrollable(container.scrollWidth > container.clientWidth);
+        }
+    }, [modality]);
+
+    const handleScroll = (direction) => {
+        const container = containerRef.current;
+        if (container) {
+            const scrollStep = container.clientWidth / 2;
+            if (direction === 'left') {
+                container.scrollLeft -= scrollStep;
+            } else if (direction === 'right') {
+                container.scrollLeft += scrollStep;
+            }
+        }
+    };
+
+    modality.sort((a, b) => new Date(a.data_start) - new Date(b.data_start));
 
     return (
-        <>
-            <div className={`${bg} pt-8 `}>
-                <div className="border-t-2 border-b-2 py-3 border-zinc-600 w-[80%] mx-auto">
-                <span className='  text-2xl color-zinc-600'>
+        <div className={`${bg} pt-8 relative`}>
+            <div className="border-t-2 border-b-2 py-3 border-zinc-600 w-[80%] mx-auto">
+                <span className='text-2xl color-zinc-600'>
                     {title}
                 </span>
-
-                </div>
-                <div className="overflow-x-hidden hover:overflow-x-scroll">
-                <div className="snap-mandatory snap-x flex flex-no-wrap gap-10 m-5 w-[80%] mx-auto">
-                    {modality.length === 0 && <p className='text-red-500'> {error}</p>}
-                    {modality.map(fest => {
-                        return (
-                            <CardFestival key={fest.id} fest={fest} showButtonAddFavorite={showButtonAddFavorite} />
-                        )
-                    })}
-                </div>
-
             </div>
+            <div
+                className="relative overflow-x-auto white-space-no-wrap snap-mandatory snap-x flex flex-no-wrap gap-10 m-5 w-[80%] mx-auto"
+                ref={containerRef}
+            >
+                {modality.length === 0 && <p className='text-red-500'> {error}</p>}
+                {modality.map(fest => (
+                    <CardFestival key={fest.id} fest={fest} showButtonAddFavorite={showButtonAddFavorite} />
+                ))}
             </div>
-            
+            {scrollable && (
+                <>
+                    <button
+                        className="absolute top-1/2 transform -translate-y-1/2 left-0 opacity-50 hover:opacity-100 py-2 px-4 rounded-l-lg"
+                        onClick={() => handleScroll('left')}
+                    >
+                        {/* Flecha a la izquierda */}
+                        
+                        <img src={arrowLeft} alt=""  className='w-6'/>
+                    </button>
+                    <button
+                        className="absolute top-1/2 transform -translate-y-1/2 right-0 opacity-50 hover:opacity-100 py-2 px-4 rounded-r-lg"
+                        onClick={() => handleScroll('right')}
+                    >
+                        {/* Flecha a la derecha */}
+                        <img src={arrowRight} alt=""  className='w-6'/>
+                    </button>
+                </>
+            )}
+        </div>
+    );
+};
 
-        </>
-    )
-}
-
-export default ListFestivalsModality
+export default ListFestivalsModality;
