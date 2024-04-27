@@ -1,20 +1,14 @@
 import {useSelector}  from "react-redux"
-import { useNavigate } from "react-router-dom"
 import FormAddFestival from '../components/FormAddFestival'
 import Modal from "../components/Modal"
 import { useFestivalContext } from "../context/FestivalContext"
 import { useEffect } from "react"
 
- 
-
-
 const AddFestival = () => {
 
-  const navigate = useNavigate()    
   const {setMessageModal} = useFestivalContext()
   useEffect(()=>{
     showModalIsNotLogin()
-
   },[])
 
     const {isLogin} = useSelector(state => state.authUser)
@@ -25,8 +19,6 @@ const AddFestival = () => {
       }
     }
    
-
-  
   return (
     <div>
       <Modal />

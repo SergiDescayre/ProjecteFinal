@@ -25,12 +25,12 @@ const Login = () => {
 
   const auth = getAuth(appFirebase);
   useEffect(() => {
-    document.querySelector("nav").style.display="none"
+    //document.querySelector("nav").style.display="none"
     document.querySelector("footer").style.display="none"
     return () => {
       // Acciones a realizar al desmontar el componente
       document.querySelector("footer").style.display="block"
-      document.querySelector("nav").style.display="block"
+      //document.querySelector("nav").style.display="block"
       
     };
   },[])

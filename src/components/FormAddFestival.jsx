@@ -1,13 +1,19 @@
 import { useState } from "react";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { addDoc, collection, doc, getFirestore, updateDoc } from "firebase/firestore";
-import appFirebase from "../credentials"
+import {
+  addDoc,
+  collection,
+  doc,
+  getFirestore,
+  updateDoc,
+} from "firebase/firestore";
+import appFirebase from "../credentials";
 import { getAuth } from "firebase/auth";
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
+import add from "../assets/add.svg";
 
 const formAddFestival = () => {
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [name, setName] = useState("");
   const [city, setCity] = useState("");
@@ -16,7 +22,8 @@ const formAddFestival = () => {
   const [dataEnd, setDataEnd] = useState("");
   const [image, setImage] = useState("");
   const [url, setUrl] = useState("");
-  const [description,setDescription] = useState("")
+  const [teacher, setTeacher] = useState("");
+  const [listOfTeachers, setListOfTeachers] = useState([]);
 
   const handleCheckBox = (e) => {
     if (e.target.checked) {
@@ -34,11 +41,11 @@ const formAddFestival = () => {
       if (image === "") {
         return alert("Debe haber una imagen");
       }
-  
+
       const storageRef = ref(storage, image.name);
       await uploadBytes(storageRef, image);
       const imageUrl = await getDownloadURL(storageRef);
-  
+
       const db = getFirestore(appFirebase);
       // Añadir el documento a la colección "festivals" y obtener el ID asignado
       const docRef = await addDoc(collection(db, "festivals"), {
@@ -50,19 +57,19 @@ const formAddFestival = () => {
         data_end: dataEnd,
         img: imageUrl,
         link: url,
-        description,
+        listOfTeachers,
         isFavorite: false,
-        attend: false
+        attend: false,
       });
-  
+
       // Obtener el ID del documento recién creado
       const docId = docRef.id;
-  
+
       // Actualizar el documento para incluir el ID
       await updateDoc(doc(db, "festivals", docId), {
-        docId: docId
+        docId: docId,
       });
-  
+
       // Redirigir a la página de festivales
       navigate("/");
     } catch (error) {
@@ -70,17 +77,21 @@ const formAddFestival = () => {
     }
   };
 
+  const addTeachers = () => {
+    setListOfTeachers([...listOfTeachers, teacher]);
+    setTeacher("");
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    uploadImageToStorage()
-
+    uploadImageToStorage();
   };
 
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <div className="md:w-[600px] mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 justify-items-center gap-5 mx-4">
+        <div className="md:w-[600px] mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 justify-items-center gap-5 ">
             <div className="w-full">
               <label htmlFor="name">Nombre del festival</label>
               <input
@@ -102,12 +113,31 @@ const formAddFestival = () => {
               />
             </div>
           </div>
-          <div className="m-4">
-          <label>Descripción</label>
-          <textarea className="textarea textarea-bordered w-full" placeholder="Descripción"></textarea>
+          <div className="mt-5">
+            <label>Profesores</label>
+            <div className="join w-full">
+              <input
+                className="input input-bordered join-item w-full"
+                value={teacher}
+                onChange={(e) => setTeacher(e.target.value)}
+                required
+              />
+              <button onClick={addTeachers} className="btn join-item ">
+                Añadir
+              </button>
+            </div>
+            <div>
+              {listOfTeachers.length > 0 && (
+                <div className="flex flex-col border border-zinc-900 rounded-md mt-5 px-5 py-2 bg-zinc-100">
+                  {listOfTeachers.map((teacher, index) => (
+                    <span key={index}>{teacher}</span>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
 
-          <div className="mx-4 mt-5 text-center">
+          <div className=" mt-5 text-center">
             <label>Modalidad/es</label>
             <div className="flex justify-between  md:justify-around gap-2 mt-5">
               <div className="flex flex-col items-center">
@@ -140,7 +170,7 @@ const formAddFestival = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 justify-items-center gap-5 mx-4 mt-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 justify-items-center gap-5  mt-5">
             <div className="w-full">
               <label htmlFor="data_start">Fecha Inicio</label>
               <input
@@ -163,7 +193,7 @@ const formAddFestival = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 justify-items-center gap-5 mx-4 mt-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 justify-items-center gap-5  mt-5">
             <div className="w-full">
               <label htmlFor="image">Imagen de portada</label>
               <input
@@ -185,13 +215,12 @@ const formAddFestival = () => {
               />
             </div>
           </div>
-          <div className="grid grid-cols-1 justify-items-center gap-5 mx-4 mt-5">
+          <div className="grid grid-cols-1 justify-items-center gap-5  mt-5">
             <button className="btn btn-neutral w-full" onClick={handleSubmit}>
               Enviar
             </button>
           </div>
         </div>
-
       </form>
     </>
   );
