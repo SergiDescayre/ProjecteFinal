@@ -1,5 +1,5 @@
 import ButtonDeleteFav from "./ButtonDeleteFav";
-import ButtonAddFav from "./ButtonFavorite";
+
 import CountDawn from "./CountDawn";
 import DateFestival from "./DateFestival";
 import { useNavigate } from "react-router-dom";
@@ -8,6 +8,8 @@ import ReactCardFlip from "react-card-flip";
 import { useState } from "react";
 import replay from "../assets/replay.svg";
 import DateFestivalHorizontal from "./DateFestivalHorizontal";
+import ButtonAddFavorite from "./ButtonAddFavorite";
+import ButtonDeleteFest from "./ButtonDeleteFest";
 
 const CardFestival = ({
   fest,
@@ -16,6 +18,10 @@ const CardFestival = ({
 }) => {
   const navigate = useNavigate();
   const [isFlipped, setIsFlipped] = useState(false);
+
+  const auth = JSON.parse(localStorage.getItem("uid"))
+  console.log(auth)
+  console.log(fest.docId)
 
   const handleFlip = (e) => {
     e.preventDefault();
@@ -41,8 +47,13 @@ const CardFestival = ({
               <span className="capitalize">{fest.city}</span>
             </div>
             <div className="flex items-center gap-2">
-              {showButtonAddFavorite && <ButtonAddFav fest={fest} />}
+            
+              {auth===fest.userId && <ButtonDeleteFest fest={fest} />}
+              {showButtonAddFavorite && <ButtonAddFavorite fest={fest} />}
+              
               {showButtonDeleteFavorite && <ButtonDeleteFav fest={fest} />}
+              
+              
               <img
                 className="w-5"
                 src={replay}

@@ -46,6 +46,7 @@ function Navbar() {
     await signOut(auth);
     dispatch(setIsLogin(false));
     localStorage.removeItem("uid")
+    navigate("/login")
    
   };
 

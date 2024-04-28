@@ -9,55 +9,26 @@ import { useFestivalContext } from "../context/FestivalContext"
 import Modal from "./Modal"
 
 
-const ButtonFavorite = ({ fest }) => {
+const ButtonAddFavorite = ({ fest }) => {
   const { isLogin } = useSelector(state => state.authUser)
   const [isFavorite, setIsFavorite] = useState(false)
-  const {setMessageModal} = useFestivalContext()
+  const {deleteFavorite,addFavorite} = useFestivalContext()
 
   useEffect(() => {
     checkFavoriteStatus();
   }, []);
 
   const handleFavorites = (id) => {
+    setIsFavorite(!isFavorite)
     if (isLogin) {
-      setIsFavorite(true)
-      addFavorite(id)
-    } else {
-      document.getElementById('my_modal_5').showModal()
-      setMessageModal("Debes estar registrado para guardar favoritos")
+      addFavorite(id,fest)
+    } 
 
+    if(isFavorite) {
+      deleteFavorite(id)
     }
-
   }
-  const addFavorite = async (id) => {
-    console.log(id)
-    try {
-      const auth = getAuth(appFirebase).currentUser.uid
-      const db = getFirestore(appFirebase);
-      const querySnapshot = await getDocs(
-        query(
-          collection(db, "favorites"),
-          where("docId", "==", id),
-          where("idUserFavorite", "==", auth)
-        )
-      );
-
-     
-      if (!querySnapshot.empty) {
-        document.getElementById('my_modal_5').showModal()
-        setMessageModal("El festival ya está en la lista de favoritos.");
-        return;
-      }
-      await addDoc(collection(db, "favorites"), {
-        ...fest,
-        idUserFavorite: auth,
-        isFavorite: true
-      });
-      console.log("documento añadido")
-    } catch (error) {
-      console.error("Error al agregar favorito:", error);
-    }
-  };
+  
 
   const checkFavoriteStatus = async () => {
     if (!isLogin) return; // Si el usuario no ha iniciado sesión, no hay favoritos que cargar
@@ -91,4 +62,4 @@ const ButtonFavorite = ({ fest }) => {
   )
 }
 
-export default ButtonFavorite
+export default ButtonAddFavorite

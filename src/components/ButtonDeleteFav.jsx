@@ -1,4 +1,4 @@
-import trash from "../assets/trash.svg"
+import heartFavorite from "../assets/heartFavorite.svg"
 import { useFestivalContext } from "../context/FestivalContext"
 
 const ButtonDeleteFav = ({fest}) => {
@@ -10,7 +10,7 @@ const ButtonDeleteFav = ({fest}) => {
     
   return (
     <div onClick={() => handleFavorites(fest.id)}>
-    <img src={trash} alt="trash" className="cursor-pointer"/>
+    <img src={heartFavorite} alt="trash" className="cursor-pointer"/>
     
 </div>
   )
