@@ -11,7 +11,7 @@ const ContexProvider = ({ children }) => {
     const [error, setError] = useState("")
     const [messageModal, setMessageModal] = useState("")
     const [isFavorite, setIsFavorite] = useState(false)
-    const [coords, setCoords] = useState();
+    const [coords, setCoords] = useState([]);
 
 
     const getFilterModality = (modalityFilter) => {
@@ -80,26 +80,27 @@ const ContexProvider = ({ children }) => {
 
     // Petición para obtener cordenadas de las ciudades
 
-    const getCoords =  () => {
-        const newArray = []
+    const getCoords = async () => {
 
-        const apiKey = "cd3dc347cbd50183b49d880f603d2f92";
+        const apiKey = "52bec998662d67728032b9a8a722ee73";
         try {
-            festivals.map(async (city) => {
+            const newArray = []
+            await Promise.all(festivals.map(async(city) => {
                 const response = await fetch(
-                  `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`
+                  `https://api.openweathermap.org/data/2.5/weather?q=${city.city}&appid=${apiKey}`
                 );
                 const data = await response.json();
                 newArray.push(data)
-              })
-              localStorage.setItem("coords" ,JSON.stringify(newArray))
+            
+              }))
+              setCoords(newArray)
+              localStorage.setItem("coords", JSON.stringify(newArray))
+             
+
         } catch (error) {
             console.log(error)
         }
-
-        setCoords(newArray)
-        console.log(coords)
-        
+      
     }
 
     return ( 

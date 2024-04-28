@@ -6,7 +6,10 @@ export default {
   ],
   "darkMode" : "class",
   theme: {
-    extend: {}
+    extend: { 
+      fontFamily: {
+        'sans': ['Montserrat', 'sans-serif'],
+      },}
   },
   plugins: [require("daisyui")],
   daisyui: {

@@ -105,7 +105,7 @@ const Login = () => {
   return (
     <section className="container_login flex justify-center items-center h-screen ">
       <div className="bg-zinc-800 bg-opacity-60 w-screen h-screen flex justify-center items-center">
-      <div className=" border-orange-200 w-screen flex flex-col justify-around h-screen  md:card md:h-[700px]  bg-zinc-900  px-5 md:w-[500px] md:px-10 ">
+      <div className=" w-screen flex flex-col justify-around h-screen  md:card md:h-[700px]  bg-zinc-900  px-5 md:w-[500px] md:px-10 ">
         <div>
           <img src={logoLigth} alt="logo" className=" mx-auto" />
         </div>

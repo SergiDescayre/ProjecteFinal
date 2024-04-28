@@ -25,7 +25,7 @@ const CardFestival = ({
   return (
     <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
       {/* Face A */}
-      <div className="card rounded-lg min-w-72 h-72 text-orange-200 shadow-xl overflow-hidden">
+      <div className="card rounded min-w-72 h-72 text-orange-200 shadow-xl overflow-hidden">
         <div
           className="h-40 bg-cover bg-center "
           style={{ backgroundImage: "url(" + fest.img + ")" }}
@@ -37,7 +37,7 @@ const CardFestival = ({
         <div className=" bg-zinc-900">
           <div className="flex items-center justify-between p-3 gap-2">
             <div>
-              <h2 className="card-title uppercase  w-full ">{fest.name}</h2>
+              <h2 className="uppercase  w-full text-lg font-semibold  ">{fest.name}</h2>
               <span className="capitalize">{fest.city}</span>
             </div>
             <div className="flex items-center gap-2">
@@ -56,8 +56,8 @@ const CardFestival = ({
           </div>
         </div>
       </div>
-      <div className="card rounded-lg min-w-72 h-72 border-2 border-orange-200 bg-zinc-800 text-orange-200 shadow-xl overflow-hidden">
-        <div className="flex justify-between items-center p-2 border-b-2 border-orange-200">
+      <div className="card rounded min-w-72 h-72 border border-orange-200 bg-zinc-800 text-orange-200 shadow-xl overflow-hidden">
+        <div className="flex justify-between items-center p-2 border-b border-orange-200">
           <img className="w-5 cursor-pointer" src={replay} alt="replay" onClick={handleFlip} />
           <span className="uppercase text-center">{fest.name}</span>
           <a href={fest.link} target="_blank">

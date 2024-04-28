@@ -1,19 +1,25 @@
-import {collection, deleteDoc, getDocs, getFirestore, query, where } from 'firebase/firestore';
-import { useEffect,useState } from 'react'
-import appFirebase from '../credentials';
-import { useNavigate } from 'react-router-dom';
+import {
+  collection,
+  deleteDoc,
+  getDocs,
+  getFirestore,
+  query,
+  where,
+} from "firebase/firestore";
+import { useEffect, useState } from "react";
+import appFirebase from "../credentials";
+import { useNavigate } from "react-router-dom";
 
+const CountDawn = ({ date, docId }) => {
+  const firestore = getFirestore(appFirebase);
+  const navigate = useNavigate();
 
-const CountDawn = ({date,docId}) => {
-    const firestore = getFirestore(appFirebase)
-    const navigate = useNavigate()
-
-// Fecha de finalización del countdown
+  // Fecha de finalización del countdown
   const endDate = new Date(date).getTime();
   // Estado para almacenar el tiempo restante
   const [timeRemaining, setTimeRemaining] = useState(calculateTimeRemaining());
-  const [lastTime , setLastTime] =useState(false)
-  const [deleteFest, setDeleteFest] = useState(false)
+  const [lastTime, setLastTime] = useState(false);
+  const [deleteFest, setDeleteFest] = useState(false);
 
   // Función para calcular el tiempo restante
   function calculateTimeRemaining() {
@@ -30,82 +36,95 @@ const CountDawn = ({date,docId}) => {
       hours,
       minutes,
       seconds,
-      distance
+      distance,
     };
   }
 
   const showLastTime = () => {
-    if(timeRemaining.days === 0){
-        setLastTime(true)
+    if (timeRemaining && timeRemaining.days === 0) {
+      setLastTime(true);
     }
-  }
-  
+  };
+
   const deletePastFestivals = () => {
- 
-    if(timeRemaining.distance < 0){
-      deleteFestival()
+    if (timeRemaining.distance < 0) {
+      deleteFestival();
     }
-  }
+  };
   const deleteFestival = async () => {
     try {
-     
-      const q = query(collection(firestore, 'festivals'), where('docId', '==', docId));
+      const q = query(
+        collection(firestore, "festivals"),
+        where("docId", "==", docId)
+      );
 
       // Obtener documentos que cumplen con la condición
       const querySnapshot = await getDocs(q);
 
       // Para cada documento encontrado, eliminarlo
-        querySnapshot.forEach(async (doc) => {
+      querySnapshot.forEach(async (doc) => {
         await deleteDoc(doc.ref);
         console.log(`Documento eliminado con ID: ${doc.id}`);
-       
-        
       });
     } catch (error) {
-      console.error('Error al eliminar documentos:', error);
+      console.error("Error al eliminar documentos:", error);
     }
   };
 
-
-
   // Función para actualizar el tiempo restante cada segundo
   useEffect(() => {
-    showLastTime()
-    deletePastFestivals()
+    showLastTime();
+    deletePastFestivals();
     const interval = setInterval(() => {
       setTimeRemaining(calculateTimeRemaining());
     }, 1000);
 
     return () => clearInterval(interval);
   }, []);
-    return (
-        <div className="grid grid-cols-4 gap-1 text-center p-3">
-            <div className={`flex flex-col p-2 ${lastTime ? "text-red-500" : "text-orange-200"}  items-center w-18 `}>
-                <span className="countdown text-2xl">
-                    <span style={{ "--value": timeRemaining.days }}></span>
-                </span>
-                <span className="text-xs">Dias</span>
-            </div>
-            <div className={`flex flex-col p-2 ${lastTime ? "text-red-500" : "text-orange-200"}  items-center w-18 `}>
-                <span className="countdown text-2xl">
-                    <span style={{ "--value": timeRemaining.hours }}></span>
-                </span>
-                <span className="text-xs">Horas</span>
-            </div>
-            <div className={`flex flex-col p-2 ${lastTime ? "text-red-500" : "text-orange-200"}  items-center w-18 `}>
-                <span className="countdown text-2xl">
-                    <span style={{ "--value": timeRemaining.minutes }}></span>
-                </span>
-                <span className="text-xs">Min</span>
-            </div>
-            <div className={`flex flex-col p-2 ${lastTime ? "text-red-500" : "text-orange-200"}  items-center w-18 `}>
-                <span className="countdown text-2xl">
-                    <span style={{ "--value": timeRemaining.seconds }}></span>
-                </span>
-                <span className="text-xs">Seg</span>
-            </div>
+  return (
+    <div className="grid grid-cols-4 gap-1 text-center p-3">
+      <div
+        className={`flex flex-col p-2  ${
+          lastTime ? "text-red-500" : "text-orange-200"
+        }  items-center w-18 `}
+      >
+        <div className="flex flex-col items-center ">
+          <span className="countdown text-2xl">{timeRemaining.days}</span>
+          <span className="text-xs ">Dias</span>
         </div>
-    )
-}
+      </div>
+      <div
+        className={`flex flex-col p-2 ${
+          lastTime ? "text-red-500" : "text-orange-200"
+        }  items-center w-18 `}
+      >
+        <span className="countdown text-2xl">
+          <span style={{ "--value": timeRemaining.hours }}></span>
+        </span>
+        <span className="text-xs">Horas</span>
+      </div>
+      <div
+        className={`flex flex-col p-2 ${
+          lastTime ? "text-red-500" : "text-orange-200"
+        }  items-center w-18 `}
+      >
+        <span className="countdown text-2xl">
+          <span style={{ "--value": timeRemaining.minutes }}></span>
+        </span>
+        <span className="text-xs">Min</span>
+      </div>
+      <div
+        className={`flex flex-col p-2 ${
+          lastTime ? "text-red-500" : "text-orange-200"
+        }  items-center w-18 `}
+      >
+        <span className="countdown text-2xl">
+          <span style={{ "--value": timeRemaining.seconds }}></span>
+        </span>
+        <span className="text-xs">Seg</span>
+      </div>
+    </div>
+  );
+};
 
-export default CountDawn
+export default CountDawn;

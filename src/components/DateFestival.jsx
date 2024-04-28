@@ -23,10 +23,9 @@ const DateFestival = ({date}) => {
       const month = months[(+positionMonth)-1]
 
   return (
-    <div className='flex flex-col bg-zinc-900 text-orange-200 min-w-16 p-2 border-2 border-orange-200 rounded-xl items-center'>
-      <span className='text-xl'>{day}</span>
+    <div className='flex flex-col bg-zinc-900 border text-orange-200 w-20 h-20 p-2 border-orange-100  rounded items-center'>
+      <span className='text-2xl'>{day}</span>
       <span>{month}</span>
-      <span>{year}</span>
     </div>
   )
 }
